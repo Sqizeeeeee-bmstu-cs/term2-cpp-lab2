@@ -2,6 +2,13 @@
 #include "include/email.h"
 #include "include/verifiedemail.h"
 
+void addSuffix(Email email, std::string suffix) {
+    std::string aliasLocalPart = email.getLocalPart() + "+" + suffix;
+    Email alias = email.createAlias(aliasLocalPart);
+
+    std::cout << "Псевдоним: " << alias.getFullAddress() << "\n";
+}
+
 int main() {
     std::cout << "=== Создание обычных Email ===\n";
     Email email1("user", "gmail.com");
@@ -14,6 +21,11 @@ int main() {
               << " -> " << email2.getService() << "\n";
     std::cout << "Email3: " << email3.getFullAddress() 
               << " -> " << email3.getService() << "\n\n";
+
+    std::cout << "=== addSuffix(Email, suffix) ===\n";
+    addSuffix(email1, "news");
+    addSuffix(email2, "work");
+    std::cout << "\n";
     
     std::cout << "=== Создание VerifiedEmail ===\n";
     VerifiedEmail vemail1("user", "gmail.com", "2024-01-15");
@@ -31,7 +43,7 @@ int main() {
               << " (верифицирован: " << vemail3.getVerificationDate() << ")\n\n";
     
     std::cout << "=== Демонстрация полиморфизма ===\n";
-    Email* ptr1 = &vemail1;  // Указатель на базовый класс, но объект VerifiedEmail
+    Email* ptr1 = &vemail1;
     Email* ptr2 = &vemail2;
     Email* ptr3 = &vemail3;
     
@@ -49,7 +61,7 @@ int main() {
     std::cout << "=== Тест сеттера без параметра (текущая дата) ===\n";
     VerifiedEmail vemail4("test", "gmail.com");
     std::cout << "До setVerificationDate(): " << vemail4.getVerificationDate() << "\n";
-    vemail4.setVerificationDate();  // устанавливает текущую дату
+    vemail4.setVerificationDate();
     std::cout << "После setVerificationDate(): " << vemail4.getVerificationDate() << "\n";
     
     return 0;

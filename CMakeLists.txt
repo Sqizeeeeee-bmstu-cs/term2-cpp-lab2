@@ -1,17 +1,27 @@
 cmake_minimum_required(VERSION 3.10)
-project(EmailProject)
+project(EmailProject LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Заголовочные файлы
-include_directories(include)
-
-# Исходные файлы
-set(SOURCES
+# Библиотека с реализацией Email и VerifiedEmail
+add_library(email_library
     src/email.cpp
     src/verifiedemail.cpp
+)
+
+target_include_directories(email_library
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+# Демонстрационное приложение
+add_executable(email_app
     main.cpp
 )
 
-# Создаем исполняемый файл
-add_executable(email_app ${SOURCES})
+target_link_libraries(email_app
+    PRIVATE
+        email_library
+)

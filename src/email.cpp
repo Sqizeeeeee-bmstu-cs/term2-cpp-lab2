@@ -22,7 +22,8 @@ std::string Email::getService() const {
     if (domainLower.find("outlook.com") != std::string::npos || 
         domainLower.find("hotmail.com") != std::string::npos) return "Microsoft";
     if (domainLower.find("yahoo.com") != std::string::npos) return "Yahoo";
-    if (domainLower.find("icloud.com") != std::string::npos) return "Apple";
+    if (domainLower.find("icloud.com") != std::string::npos || 
+        domainLower.find("apple.com") != std::string::npos) return "Apple";
     if (domainLower.find("mail.ru") != std::string::npos) return "Mail.ru";
     if (domainLower.find("yandex.ru") != std::string::npos) return "Yandex";
     if (domainLower.find("protonmail.com") != std::string::npos) return "ProtonMail";
